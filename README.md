@@ -1,2 +1,2 @@
 # RAG-App
-It is the Rag application
+RAG Document Q&A With GROQ API And LLama3
