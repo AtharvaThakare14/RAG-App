@@ -45,13 +45,46 @@ This repository contains the complete Terraform codebase for provisioning and ma
 
 ## 🗂 Repository Structure
 ```
-.github/workflows/       - CI/CD workflows
-environments/            - Env-specific configs (dev, staging, prod)
-modules/                 - Terraform modules (api, auth, compute, database, storage, vpc)
-rag_ui/                  - Streamlit frontend
-scripts/                 - Utility scripts (cleanup, imports, diagnostics)
-src/                     - Backend Lambda code
-```
+.
+├── .github/workflows/       # CI/CD via GitHub Actions
+│   ├── deploy.yml           # Infrastructure deployment workflow
+│   └── manual_cleanup.yml   # Resource cleanup workflow
+├── environments/            # Environment-specific configs (dev, staging, prod)
+│   └── dev/                 # Example 'dev' environment
+│       ├── main.tf          # Root Terraform file for the environment
+│       ├── providers.tf     # Terraform provider configurations
+│       └── variables.tf     # Environment-specific variable definitions
+├── modules/                 # Reusable Terraform modules
+│   ├── api/                 # API Gateway configuration
+│   ├── auth/                # Cognito authentication
+│   ├── compute/             # Lambda functions & IAM roles
+│   ├── database/            # PostgreSQL RDS with pgvector & Secrets Manager
+│   ├── monitoring/          # CloudWatch Logs, Alarms & SNS Topic
+│   ├── storage/             # S3 Buckets & DynamoDB Table
+│   └── vpc/                 # VPC, Subnets, NAT, Security Groups, Endpoints
+├── rag_ui/                  # Streamlit UI application
+│   ├── app.py               # Main Streamlit application code
+│   └── README.md            # README specific to the UI
+├── scripts/                 # Utility shell scripts
+│   ├── cleanup.sh           # Comprehensive resource cleanup script
+│   ├── import_resources.sh  # Script to import existing AWS resources into Terraform state
+│   └── network-diagnostics.sh # Script for troubleshooting network connectivity (e.g., Lambda to RDS)
+├── src/                     # Lambda backend source code (Python)
+│   ├── auth_handler/        # Lambda for Cognito authentication operations
+│   ├── db_init/             # Lambda for database schema and pgvector initialization
+│   ├── document_processor/  # Lambda for processing uploaded documents
+│   ├── query_processor/     # Lambda for handling user queries and RAG
+│   ├── tests/               # Unit and integration tests
+│   │   ├── integration/     # Integration tests for deployed services
+│   │   │   └── run_integration_tests.py
+│   │   ├── unit/            # Unit tests for Lambda functions
+│   │   │   ├── conftest.py  # Pytest common fixtures and mocks
+│   │   │   ├── test_*.py    # Individual unit test files
+│   │   └── __init__.py
+│   ├── upload_handler/      # Lambda for handling file uploads via API
+│   └── utils/               # Shared utility code (e.g., db_connectivity_test.py)
+├── sonar-project.properties # SonarQube configuration file
+└── tox.ini                  # tox configuration for running tests and linters
 
 ---
 
