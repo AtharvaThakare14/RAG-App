@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-app-on-aws"
+version = "0.1.0"
+description = "RAG Application on AWS"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+dependencies = [
+    "boto3>=1.38.6",
+    "psycopg2-binary>=2.9.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "moto>=5.1.4",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["src/tests"]
+pythonpath = [".", "src"]
